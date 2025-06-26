@@ -1,0 +1,56 @@
+def caesar_encrypt(text, shift):
+    """
+    Encrypt the text using Caesar Cipher with the given shift.
+    Only letters are shifted; other characters remain the same.
+    """
+    result = []
+    for char in text:
+        if char.isalpha():
+            offset = ord('A') if char.isupper() else ord('a')
+            shifted = chr((ord(char) - offset + shift) % 26 + offset)
+            result.append(shifted)
+        else:
+            result.append(char)
+    return ''.join(result)
+
+def caesar_decrypt(text, shift):
+    """
+    Decrypt the text using Caesar Cipher with the given shift.
+    """
+    return caesar_encrypt(text, -shift)
+
+def main():
+    print("=== Caesar Cipher Program ===")
+    while True:
+        choice = input("Type 'e' to encrypt or 'd' to decrypt (or 'q' to quit): ").strip().lower()
+        if choice == 'q':
+            print("Goodbye!")
+            break
+        if choice not in ('e', 'd'):
+            print("Invalid choice. Please enter 'e', 'd', or 'q'.")
+            continue
+        message = input("Enter your message: ")
+        try:
+            shift = int(input("Enter shift value (integer): "))
+        except ValueError:
+            print("Invalid shift value. Please enter an integer.")
+            continue
+        if choice == 'e':
+            output = caesar_encrypt(message, shift)
+            print("Encrypted message:", output)
+        else:
+            output = caesar_decrypt(message, shift)
+            print("Decrypted message:", output)
+        print()
+
+if __name__ == "__main__":
+    main()
+
+
+How it works:
+
+Users choose to encrypt or decrypt.
+Enter a message and a shift value (integer).
+The program preserves letter case and non-alphabetic characters.
+Encryption and decryption both use the same logic, with decryption simply shifting in the opposite direction.
+Usage: Just run the script with Python
